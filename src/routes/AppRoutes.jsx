@@ -9,6 +9,9 @@ import DashBoardLayout from '../layouts/DashBoardLayout';
 import Login from '../pages/auth-temp/Login';
 import Register from '../pages/auth-temp/Register';
 
+
+import LandingPage from '../pages/LandingPage';
+
 // Dashboard Pages
 import AdminDashBoard from '../pages/DashBoard/AdminDashBoard';
 import DoctorDashBoard from '../pages/DashBoard/DoctorDashBoard';
@@ -54,6 +57,16 @@ const AppRoutes = () => {
 
   return (
     <Routes>
+     
+      <Route 
+        path="/" 
+        element={
+          isAuthenticated ? 
+            <Navigate to={getDashboardRoute()} replace /> : 
+            <LandingPage />
+        } 
+      />
+
       {/* Public Routes */}
       <Route element={<AuthLayout />}>
         <Route 
@@ -120,16 +133,6 @@ const AppRoutes = () => {
           }
         />
       </Route>
-
-      {/* Home redirect */}
-      <Route 
-        path="/" 
-        element={
-          isAuthenticated ? 
-            <Navigate to={getDashboardRoute()} replace /> : 
-            <Navigate to="/login" replace />
-        } 
-      />
 
       {/* Error Pages */}
       <Route path="/unauthorized" element={<Unauthorized />} />
